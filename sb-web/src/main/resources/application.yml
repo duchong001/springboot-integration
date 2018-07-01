@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  context-path: /
+#
+#
+mybatis:
+  type-aliases-package: com.dc.sb.dao.dataobject
+  mapper-locations: classpath*:META-INF/mybatis/mapper/*.xml
+#
+##pagehelper:
+##  helperDialect: mysql
+##  reasonable: true
+##  supportMethodsArguments: true
+##  params: count=countSql
+#
+##logging
+#logging:
+#  config: classpath:logback-spring.xml
+#
+druid:
+  initialSize: 5
+  minIdle: 0
+  maxActive: 20
+  maxWait: 6000
+  timeBetweenEvictionRunsMillis: 60000
+  minEvictableIdleTimeMillis: 300000
+  validationQuery: SELECT 1 FROM DUAL
+  testWhileIdle: false
+  testOnBorrow: false
+  testOnReturn: false
+  poolPreparedStatements: true
+  maxPoolPreparedStatementPerConnectionSize: 20
+  filters: stat,log4j
+#
+#
+##profiles:
+#    #active: dev
+#
+## 开发环境
+spring:
+  datasource:
+   driver-class-name: com.mysql.jdbc.Driver
+   url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+   username: root
+   password: root

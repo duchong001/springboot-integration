@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.dc.sb</groupId>
+	<artifactId>sb-integration</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>sprigboot-integration</name>
+	<description>Spring Boot 多模块</description>
+
+	<properties>
+
+		<sb-service.version>0.0.1-SNAPSHOT</sb-service.version>
+		<sb-dao.version>0.0.1-SNAPSHOT</sb-dao.version>
+		<sb-common.version>0.0.1-SNAPSHOT</sb-common.version>
+
+		<data-redis.version>1.5.1.RELEASE</data-redis.version>
+
+		<mybatis-starter.version>1.1.1</mybatis-starter.version>
+		<mybatis.generator.version>1.3.5</mybatis.generator.version>
+
+		<pagehelper.version>5.0.0</pagehelper.version>
+		<pagehelper-starter.version>1.1.0</pagehelper-starter.version>
+
+		<druid.version>1.0.28</druid.version>
+		<mysql.version>5.1.9</mysql.version>
+
+		<servlet.version>3.1.0</servlet.version>
+		<httpclient.version>4.5.2</httpclient.version>
+	</properties>
+	<!-- 多模块-->
+	<modules>
+		<module>sb-service</module>
+		<module>sb-web</module>
+		<module>sb-dao</module>
+		<module>sb-common</module>
+	</modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.13.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.dc.sb</groupId>
+				<artifactId>sb-service</artifactId>
+				<version>${sb-service.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.dc.sb</groupId>
+				<artifactId>sb-dao</artifactId>
+				<version>${sb-dao.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.dc.sb</groupId>
+				<artifactId>sb-common</artifactId>
+				<version>${sb-common.version}</version>
+			</dependency>
+			<!--data-redis-->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-redis</artifactId>
+				<version>${data-redis.version}</version>
+			</dependency>
+			<!--mybatis-->
+			<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>${mybatis.generator.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>org.mybatis.spring.boot</groupId>
+			    <artifactId>mybatis-spring-boot-starter</artifactId>
+			    <version>${mybatis-starter.version}</version>
+			</dependency>
+			<!--pagehelper-->
+			<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper</artifactId>
+			    <version>${pagehelper.version}</version>
+			</dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-starter.version}</version>
+            </dependency>
+			<!--druid-->
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>druid</artifactId>
+			    <version>${druid.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			    <version>${mysql.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>javax.servlet</groupId>
+			    <artifactId>javax.servlet-api</artifactId>
+			    <version>${servlet.version}</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>org.apache.httpcomponents</groupId>
+			    <artifactId>httpclient</artifactId>
+			    <version>${httpclient.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpcore</artifactId>
+				<version>${httpclient.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

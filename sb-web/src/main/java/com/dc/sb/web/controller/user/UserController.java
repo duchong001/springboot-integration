@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author DUCHONG
  * @since 2018-07-01 0:38
@@ -62,7 +64,12 @@ public class UserController {
     public String getUserList(@PathVariable(name = "pageNum") Integer pageNum,@PathVariable(name = "pageSize") Integer pageSize){
 
         PageInfo pageInfo=userService.getUserList(pageNum,pageSize);
-
-        return pageInfo.toString();
+        List<UsersDO> list=pageInfo.getList();
+        StringBuffer sb=new StringBuffer();
+        for (UsersDO usersDO : list) {
+            sb.append(usersDO.toString());
+            sb.append("\r\n");
+        }
+        return sb.toString();
     }
 }

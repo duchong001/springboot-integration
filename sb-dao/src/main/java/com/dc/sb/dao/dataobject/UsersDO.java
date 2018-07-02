@@ -1,20 +1,20 @@
 package com.dc.sb.dao.dataobject;
 
 public class UsersDO {
-    /** 
-    * 
+    /**
+    *
     * DB Column Name: id
     */
     private Integer id;
 
-    /** 
-    * 
+    /**
+    *
     * DB Column Name: username
     */
     private String username;
 
-    /** 
-    * 
+    /**
+    *
     * DB Column Name: age
     */
     private Integer age;
@@ -89,5 +89,14 @@ public class UsersDO {
      */
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "UsersDO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

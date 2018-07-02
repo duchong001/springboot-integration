@@ -7,10 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author DUCHONG
@@ -27,26 +27,42 @@ public class UserController {
 
     @RequestMapping(value="/add",method= RequestMethod.GET)
     public String addUser(ModelMap mm){
+
         for (int i=0;i<10;i++){
             UsersDO usersDO=new UsersDO();
             usersDO.setUsername("u"+i);
             usersDO.setAge(i+10);
+            userService.addUser(usersDO);
         }
         return "add success";
     }
 
-    @RequestMapping(value="update")
-    public ModelAndView updateUser(ModelMap mm){
+    @RequestMapping(value="/delete/{id}")
+    public String deleteUser(@PathVariable(name = "id") Integer id){
 
-        mm.addAttribute("update","success");
-        return new ModelAndView("",mm);
+        UsersDO usersDO=userService.getUserById(id);
+        if(null!=usersDO){
+            userService.deleteUserById(id);
+        }
+        return "delete success";
     }
 
-    @RequestMapping(value = "/getList")
-    public String getUserList(ModelMap mm){
+    @RequestMapping(value="/update/{id}")
+    public String updateUser(@PathVariable(name = "id") Integer id){
 
-        PageInfo pageInfo=userService.getUserList(1,5);
-        mm.addAttribute("pageinfo",pageInfo);
-        return mm.toString();
+        UsersDO usersDO=userService.getUserById(id);
+        if(null!=usersDO){
+            usersDO.setUsername("testUpdate");
+            userService.updateUser(usersDO);
+        }
+        return "update success";
+    }
+
+    @RequestMapping(value = "/getList/{pageNum}/{pageSize}")
+    public String getUserList(@PathVariable(name = "pageNum") Integer pageNum,@PathVariable(name = "pageSize") Integer pageSize){
+
+        PageInfo pageInfo=userService.getUserList(pageNum,pageSize);
+
+        return pageInfo.toString();
     }
 }

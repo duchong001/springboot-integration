@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/sb-dao/sb-dao.iml" filepath="$PROJECT_DIR$/sb-dao/sb-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/sb-service/sb-service.iml" filepath="$PROJECT_DIR$/sb-service/sb-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/sb-web/sb-web.iml" filepath="$PROJECT_DIR$/sb-web/sb-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sb-web/sb-web.iml" filepath="$PROJECT_DIR$/sb-web/sb-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-integration.iml" filepath="$PROJECT_DIR$/springboot-integration.iml" />
     </modules>
   </component>

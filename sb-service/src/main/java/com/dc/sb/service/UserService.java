@@ -24,12 +24,21 @@ public class UserService {
     private UsersDOMapper usersDOMapper;
 
 
-
+    /**
+     * 添加
+     * @param user
+     * @return
+     */
     public int addUser(UsersDO user){
         return usersDOMapper.insert(user);
     }
 
-
+    /**
+     * 分页-list
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     public PageInfo getUserList( Integer pageNum, Integer pageSize){
 
             PageHelper.startPage(pageNum, pageSize);
@@ -42,5 +51,26 @@ public class UserService {
                 logger.error("UserService.getUserList error",e);
             }
             return null;
-        }
+    }
+    /**
+     * 通过主键获取
+     * @param id
+     * @return
+     */
+    public UsersDO getUserById(Integer id){
+
+        return usersDOMapper.selectByPrimaryKey(id);
+    }
+    /**
+     * 修改
+     * @param user
+     * @return
+     */
+    public int updateUser(UsersDO user){
+        return usersDOMapper.updateByPrimaryKey(user);
+    }
+
+    public int deleteUserById(Integer id){
+        return usersDOMapper.deleteByPrimaryKey(id);
+    }
 }

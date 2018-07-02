@@ -8,6 +8,9 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,8 @@ public class UserService {
     @Autowired
     private UsersDOMapper usersDOMapper;
 
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
 
     /**
      * 添加
@@ -59,9 +64,37 @@ public class UserService {
      */
     public List<UsersDO> getAllUserWithNoPage(){
 
-        UsersQuery query=new UsersQuery();
+
         try{
-            List<UsersDO>list=usersDOMapper.selectByExample(query);
+
+            //序列化器，将key的值设置为字符串
+            RedisSerializer redisSerializer=new StringRedisSerializer();
+            redisTemplate.setKeySerializer(redisSerializer);
+
+            //查缓存
+            List<UsersDO> list=(List<UsersDO>)redisTemplate.opsForValue().get("allUsers");
+
+            if(null==list){
+                //双重检测 锁
+                synchronized (this) {
+
+                    List<UsersDO> list1 = (List<UsersDO>) redisTemplate.opsForValue().get("allUsers");
+                    if (null == list1) {
+
+                        UsersQuery query=new UsersQuery();
+                        list=usersDOMapper.selectByExample(query);
+                        redisTemplate.opsForValue().set("allUsers", list);
+
+                        System.out.println("从数据库中取数据");
+                    }
+                    else{
+                        System.out.println("从缓存中取数据");
+                    }
+                }
+            }
+            else{
+                System.out.println("从缓存中取数据");
+            }
             return list;
         }
         catch (Exception e) {

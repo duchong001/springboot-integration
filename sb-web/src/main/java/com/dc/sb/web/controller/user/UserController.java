@@ -7,14 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author DUCHONG
@@ -27,6 +28,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private RedisTemplate<Object,Object> redisTemplate;
 
@@ -66,21 +68,8 @@ public class UserController {
     @RequestMapping(value = "/getAllUser")
     public String getUserListWithNoPage(){
 
-        List<UsersDO> resultList=null;
-        //序列化器，将key的值设置为字符串
-        RedisSerializer redisSerializer=new StringRedisSerializer();
-        redisTemplate.setKeySerializer(redisSerializer);
-        List<UsersDO> list=(List<UsersDO>)redisTemplate.opsForValue().get("allUsers");
+        List<UsersDO> resultList=userService.getAllUserWithNoPage();
 
-        if(null!=list){
-            System.out.println("从缓存中读数据");
-            resultList=list;
-        }
-        else{
-            resultList=userService.getAllUserWithNoPage();
-            System.out.println("从数据库中查数据");
-            redisTemplate.opsForValue().set("allUsers",resultList);
-        }
         return resultList.toString();
     }
 
@@ -95,5 +84,23 @@ public class UserController {
             sb.append(usersDO.toString());
         }
         return sb.toString();
+    }
+
+
+    @GetMapping(value = "/test")
+    public String  test(){
+        ExecutorService executorService= Executors.newFixedThreadPool(20);
+
+        for(int i=1 ; i<=10000;i++){
+
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    userService.getAllUserWithNoPage();
+                }
+            });
+        }
+
+        return "test over";
     }
 }

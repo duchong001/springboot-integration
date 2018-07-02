@@ -6,10 +6,12 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,9 +27,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisTemplate<Object,Object> redisTemplate;
 
-
-    @RequestMapping(value="/add",method= RequestMethod.GET)
+    @RequestMapping(value="/add")
     public String addUser(ModelMap mm){
 
         for (int i=0;i<10;i++){
@@ -60,15 +63,36 @@ public class UserController {
         return "update success";
     }
 
-    @RequestMapping(value = "/getList/{pageNum}/{pageSize}")
-    public String getUserList(@PathVariable(name = "pageNum") Integer pageNum,@PathVariable(name = "pageSize") Integer pageSize){
+    @RequestMapping(value = "/getAllUser")
+    public String getUserListWithNoPage(){
 
-        PageInfo pageInfo=userService.getUserList(pageNum,pageSize);
+        List<UsersDO> resultList=null;
+        //序列化器，将key的值设置为字符串
+        RedisSerializer redisSerializer=new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+        List<UsersDO> list=(List<UsersDO>)redisTemplate.opsForValue().get("allUsers");
+
+        if(null!=list){
+            System.out.println("从缓存中读数据");
+            resultList=list;
+        }
+        else{
+            resultList=userService.getAllUserWithNoPage();
+            System.out.println("从数据库中查数据");
+            redisTemplate.opsForValue().set("allUsers",resultList);
+        }
+        return resultList.toString();
+    }
+
+
+    @RequestMapping(value = "/getList/{pageNum}/{pageSize}")
+    public String getUserListWithPage(@PathVariable(name = "pageNum") Integer pageNum,@PathVariable(name = "pageSize") Integer pageSize){
+
+        PageInfo pageInfo=userService.getUserListWithPage(pageNum,pageSize);
         List<UsersDO> list=pageInfo.getList();
         StringBuffer sb=new StringBuffer();
         for (UsersDO usersDO : list) {
             sb.append(usersDO.toString());
-            sb.append("\r\n");
         }
         return sb.toString();
     }

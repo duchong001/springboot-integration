@@ -1,6 +1,8 @@
 package com.dc.sb.dao.dataobject;
 
-public class UsersDO {
+import java.io.Serializable;
+
+public class UsersDO implements Serializable{
     /**
     *
     * DB Column Name: id

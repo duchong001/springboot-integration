@@ -39,7 +39,7 @@ public class UserService {
      * @param pageSize
      * @return
      */
-    public PageInfo getUserList( Integer pageNum, Integer pageSize){
+    public PageInfo getUserListWithPage( Integer pageNum, Integer pageSize){
 
             PageHelper.startPage(pageNum, pageSize);
             UsersQuery query=new UsersQuery();
@@ -48,9 +48,26 @@ public class UserService {
                 return new PageInfo(list);
             }
             catch (Exception e) {
-                logger.error("UserService.getUserList error",e);
+                logger.error("UserService.getUserListWithPage error",e);
             }
             return null;
+    }
+
+    /**
+     * 无分页List
+     * @return
+     */
+    public List<UsersDO> getAllUserWithNoPage(){
+
+        UsersQuery query=new UsersQuery();
+        try{
+            List<UsersDO>list=usersDOMapper.selectByExample(query);
+            return list;
+        }
+        catch (Exception e) {
+            logger.error("UserService.getAllUserWithNoPage error",e);
+        }
+        return null;
     }
     /**
      * 通过主键获取

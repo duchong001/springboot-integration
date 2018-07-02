@@ -20,11 +20,6 @@
                         connectionURL="jdbc:mysql://127.0.0.1:3306/test?zeroDateTimeBehavior=convertToNull&amp;characterEncoding=UTF-8"
                         userId="root" password="root">
         </jdbcConnection>
-
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-                        <!--connectionURL="jdbc:mysql://rm-bp1w9eizcqj030kc5o.mysql.rds.aliyuncs.com:3306/witown_testdb?zeroDateTimeBehavior=convertToNull&amp;characterEncoding=UTF-8"-->
-                        <!--userId="witown_test" password="Witown1234">-->
-        <!--</jdbcConnection>-->
         <javaTypeResolver>
             <property name="forceBigDecimals" value="true"/>
         </javaTypeResolver>

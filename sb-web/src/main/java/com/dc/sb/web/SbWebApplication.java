@@ -1,5 +1,6 @@
 package com.dc.sb.web;
 
+import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 import com.dc.sb.config.DruidProperties;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableConfigurationProperties({DruidProperties.class})
 @MapperScan(basePackages = "com.dc.sb.dao")
 @ComponentScan("com.dc.sb.*")
+@EnableDubboConfiguration
 public class SbWebApplication {
 
 	public static void main(String[] args) {

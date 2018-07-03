@@ -12,4 +12,15 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>sb-common</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.spring.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+        </dependency>
+    </dependencies>
 </project>

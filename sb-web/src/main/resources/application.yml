@@ -50,5 +50,10 @@ spring:
     host: 127.0.0.1
     port: 6379
     password: redis
+ #dubbo 配置
+  dubbo:
+   appname: sb-dubbo-provider
+   registry: zookeeper://localhost:2181
+
 
 

@@ -103,4 +103,21 @@ public class UserController {
 
         return "test over";
     }
+
+    @GetMapping(value = "/test2")
+    public String  test2(){
+        ExecutorService executorService= Executors.newFixedThreadPool(20);
+
+        for(int i=1 ; i<=10000;i++){
+
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    userService.getAllUserWithNoPage2();
+                }
+            });
+        }
+
+        return "test over";
+    }
 }

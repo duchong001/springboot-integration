@@ -102,6 +102,34 @@ public class UserService {
         }
         return null;
     }
+
+    public List<UsersDO> getAllUserWithNoPage2(){
+        try{
+
+            //序列化器，将key的值设置为字符串
+            RedisSerializer redisSerializer=new StringRedisSerializer();
+            redisTemplate.setKeySerializer(redisSerializer);
+
+            //查缓存
+            List<UsersDO> list=(List<UsersDO>)redisTemplate.opsForValue().get("allUsers");
+
+            if(null==list){
+
+                UsersQuery query=new UsersQuery();
+                list=usersDOMapper.selectByExample(query);
+                redisTemplate.opsForValue().set("allUsers", list);
+                System.out.println("从数据库中取数据");
+            }
+            else{
+                System.out.println("从缓存中取数据");
+            }
+            return list;
+        }
+        catch (Exception e) {
+            logger.error("UserService.getAllUserWithNoPage error",e);
+        }
+        return null;
+    }
     /**
      * 通过主键获取
      * @param id

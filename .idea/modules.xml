@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/sb-common/sb-common.iml" filepath="$PROJECT_DIR$/sb-common/sb-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/sb-dao/sb-dao.iml" filepath="$PROJECT_DIR$/sb-dao/sb-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sb-dubbo-interface/sb-dubbo-interface.iml" filepath="$PROJECT_DIR$/sb-dubbo-interface/sb-dubbo-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sb-dubbo-provider/sb-dubbo-provider.iml" filepath="$PROJECT_DIR$/sb-dubbo-provider/sb-dubbo-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/sb-service/sb-service.iml" filepath="$PROJECT_DIR$/sb-service/sb-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/sb-web/sb-web.iml" filepath="$PROJECT_DIR$/sb-web/sb-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot-integration.iml" filepath="$PROJECT_DIR$/springboot-integration.iml" />

@@ -16,6 +16,9 @@
 		<sb-service.version>0.0.1-SNAPSHOT</sb-service.version>
 		<sb-dao.version>0.0.1-SNAPSHOT</sb-dao.version>
 		<sb-common.version>0.0.1-SNAPSHOT</sb-common.version>
+		<sb-dubbo-provider.version>0.0.1-SNAPSHOT</sb-dubbo-provider.version>
+		<sb-dubbo-interface.version>0.0.1-SNAPSHOT</sb-dubbo-interface.version>
+
 
 		<data-redis.version>1.5.1.RELEASE</data-redis.version>
 
@@ -31,7 +34,7 @@
 		<servlet.version>3.1.0</servlet.version>
 		<httpclient.version>4.5.2</httpclient.version>
 
-		<dubbo.starter.version>1.0.0</dubbo.starter.version>
+		<dubbo.starter.version>2.0.0</dubbo.starter.version>
 		<zkclient.version>0.10</zkclient.version>
 	</properties>
 	<!-- 多模块-->
@@ -40,12 +43,14 @@
 		<module>sb-web</module>
 		<module>sb-dao</module>
 		<module>sb-common</module>
+		<module>sb-dubbo-provider</module>
+		<module>sb-dubbo-interface</module>
 	</modules>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.13.RELEASE</version>
+		<version>1.5.14.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -67,6 +72,18 @@
 				<groupId>com.dc.sb</groupId>
 				<artifactId>sb-common</artifactId>
 				<version>${sb-common.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.dc.sb</groupId>
+				<artifactId>sb-dubbo-provider</artifactId>
+				<version>${sb-dubbo-provider.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.dc.sb</groupId>
+				<artifactId>sb-dubbo-interface</artifactId>
+				<version>${sb-dubbo-interface.version}</version>
 			</dependency>
 			<!--data-redis-->
 			<dependency>

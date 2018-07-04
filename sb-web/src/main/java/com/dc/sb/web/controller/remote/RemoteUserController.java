@@ -1,52 +1,31 @@
 package com.dc.sb.web.controller.remote;
 
+
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.dc.sb.dao.dataobject.UsersDO;
-import com.dc.sb.service.remote.RemoteUserService;
-import com.github.pagehelper.PageInfo;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import com.dc.sb.service.RemoteUserService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * dubbo消费者controller
- *
  * @author DUCHONG
  * @since 2018-07-03 18:44
  **/
-@Controller
+@RestController
 public class RemoteUserController {
 
-    @Reference(url = "dubbo://localhost:20880")
+    //timeout 可以不指定，但是version一定要指定 不然会找不到服务 直连需要加url="dubbo://localhost:20880"
+    @Reference(version = "1.0.0",url = "dubbo://127.0.0.1:20880")
     private RemoteUserService remoteUserService;
 
 
-    @RequestMapping(value="/dubbo/add")
-    public String addUser(ModelMap mm){
+    @RequestMapping(value="/dubbo/say/{name}")
+    public String sayHello(@PathVariable("name") String name){
 
-        for (int i=11;i<20;i++){
-
-            UsersDO usersDO=new UsersDO();
-            usersDO.setUsername("u"+i);
-            usersDO.setAge(i+10);
-            remoteUserService.addUser(usersDO);
-        }
-        return "dubbo add success";
+        String result=remoteUserService.sayHello(name);
+        return result;
     }
 
 
-    @RequestMapping(value = "/dubbo/getList/{pageNum}/{pageSize}")
-    public String getUserListWithPage(@PathVariable(name = "pageNum") Integer pageNum, @PathVariable(name = "pageSize") Integer pageSize){
-
-        PageInfo pageInfo=remoteUserService.getUserListWithPage(pageNum,pageSize);
-        List<UsersDO> list=pageInfo.getList();
-        StringBuffer sb=new StringBuffer();
-        for (UsersDO usersDO : list) {
-            sb.append(usersDO.toString());
-        }
-        return sb.toString();
-    }
 }

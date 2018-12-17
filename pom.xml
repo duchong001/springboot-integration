@@ -33,7 +33,7 @@
 
 		<servlet.version>3.1.0</servlet.version>
 		<httpclient.version>4.5.2</httpclient.version>
-
+		<httpcore.version>4.4</httpcore.version>
 		<dubbo.starter.version>2.0.0</dubbo.starter.version>
 		<zkclient.version>0.10</zkclient.version>
 	</properties>
@@ -143,7 +143,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
-				<version>${httpclient.version}</version>
+				<version>${httpcore.version}</version>
 			</dependency>
 
 			<dependency>
